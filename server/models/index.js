@@ -1,6 +1,7 @@
 var db = require('../db');
 
-var addMessageToDb = function(post, res) {
+var addMessageToDb = function(post, res, result) {
+  console.log(result);
   var query = `
     insert into messages (userId, text, roomId) values ( 
       (select id from users where username = '${post.username}'),
@@ -13,7 +14,7 @@ var addMessageToDb = function(post, res) {
       res.status(400).send();
     } else {
       console.log('addMessageToDb: ', result);
-      res.status(200).send();
+      res.status(200).send('hi from addMessageToDb');
     }
   });
 };
@@ -25,7 +26,7 @@ var addUserToDb = function(post, res, callback) {
       console.log('addUserToDb: error', err);
     } else {
       console.log('addUserToDb: ', result);
-      callback(post, res);
+      callback(post, res, result);
     }
   });
 };
@@ -43,6 +44,8 @@ var checkifUserExistsInDb = function(post, res, callback) {
     }
   });
 };
+
+
 module.exports = {
   messages: {
     get: function(res) {
@@ -80,8 +83,9 @@ module.exports = {
     // Ditto as above.
     get: function() {},
     post: function(post, res) {
-      checkifUserExistsInDb(post, res, function(){
-        console.log('User post success');
+      checkifUserExistsInDb(post, res, function(post, res, result){
+        console.log('User post success', result);
+        res.status(200).send(result);
       });
     }
   }

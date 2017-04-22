@@ -20,8 +20,6 @@ CREATE TABLE messages (
 	userId INTEGER NOT NULL,
 	text varchar(140) NOT NULL,
 	roomId INTEGER NOT NULL,
-	FOREIGN KEY(userId) REFERENCES users(id),
-	FOREIGN KEY(roomId) REFERENCES rooms(id),
 	PRIMARY KEY (id)
 );
 
