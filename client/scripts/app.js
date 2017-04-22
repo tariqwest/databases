@@ -44,7 +44,7 @@ var app = {
 
       success: function (data, status) {
         console.log('chatterbox: fetch success');
-        console.log(data.results, status);
+        console.log('data receives?', data, status);
         var chats = data.results;
 
         for (var i = 0; i < chats.length; i++) {
