@@ -7,6 +7,8 @@ var defaultCorsHeaders = [
   ['access-control-max-age', 10] // Seconds.
 ];
 
+
+
 module.exports = {
   messages: {
     get: function(req, res) {
@@ -32,9 +34,12 @@ module.exports = {
 
 
     post: function(req, res) {
-      // console.log(req.body)
+      res.setHeader('access-control-allow-origin', '*');
+      res.setHeader('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
+      res.setHeader('access-control-allow-headers', 'content-type, accept');
+      res.setHeader('access-control-max-age', 10);
       console.log('message post');
-      models.messages.post(req.body);
+      models.messages.post(req.body, res);
     }
   },
 
