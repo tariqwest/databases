@@ -26,8 +26,8 @@ CREATE TABLE messages (
 );
 
 insert into rooms (roomname) values ('lobby'); 
-insert into users (username) values ('addam tester');
-insert into messages (userId, text, roomId) values (1, 'test message number ONE', 1);
+insert into users (username) values ('jash');
+insert into messages (userId, text, roomId) values (1, 'im jash and . . .', 1);
 
 /*	
 

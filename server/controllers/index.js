@@ -17,15 +17,15 @@ module.exports = {
       res.setHeader('access-control-max-age', 10);
 
 
-      //models.messages.get();
+      models.messages.get(res);
 
-      res.send(JSON.stringify({
-        results: [{
-          text: 'hey man',
-          username: 'joe',
-          roomname: 'lobby'
-        }]
-      }));
+      // res.send(JSON.stringify({
+      //   results: [{
+      //     text: 'hey man',
+      //     username: 'joe',
+      //     roomname: 'lobby'
+      //   }]
+      // }));
     },
 
 

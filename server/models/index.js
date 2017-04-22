@@ -2,23 +2,32 @@ var db = require('../db');
 
 module.exports = {
   messages: {
-    get: function() {
-      db.connection.connect();
-      db.connection.query('select * from messages', function(err, rows, fields) {
+    get: function(res) {
+      var query = `SELECT * FROM messages 
+                    LEFT JOIN users ON messages.userId = users.id 
+                    LEFT JOIN rooms ON messages.roomId = rooms.id`;
+
+      db.connection.query(query, function(err, rows, fields) {
         if (err) {
           console.log('db err! ', err);
         } else {
           console.log('rows : ', rows);
           console.log('fields :', fields);
+          var results = [];
+          for (var row of rows) {
+            results.push({ 
+              roomname: row.roomname,
+              text: row.text,
+              username: row.username 
+            });
+          }
+          res.send(JSON.stringify({results: results}));
         }
       });
-      db.connection.end();
     }, // a function which produces all the messages
     post: function({ username, text, roomname }) {
       console.log('now entering post: ', username, text, roomname);
       var querystring = `select id from users where username = "${username}"`;
-      db.connection.connect();
-      //db.connection.query(insert into);
       db.connection.query(querystring, function(err, rows, fields) {
         console.log('now entering post callback1: ', username, text, roomname);
         if (err) {
@@ -33,10 +42,7 @@ module.exports = {
             } else {
               console.log('insert success:', result);
             }
-
           });
-
-
         }
       });
 
