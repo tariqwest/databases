@@ -18,14 +18,14 @@ var addMessageToDb = function(post, res) {
   });
 };
 
-var addUserToDb = function(post, res) {
+var addUserToDb = function(post, res, callback) {
   var query = `insert into users (username) value (${post.username}"`;
   db.connection.query(query, function(err, result) {
     if (err) {
       console.log('addUserToDb: error', err);
     } else {
       console.log('addUserToDb: ', result);
-      addMessageToDb(post, res);
+      callback(post, res);
     }
   });
 };
@@ -33,13 +33,13 @@ var addUserToDb = function(post, res) {
 //select id from rooms where roomname = '${post.roomname}
 
 
-var checkifUserExistsInDb = function(post, res) {
+var checkifUserExistsInDb = function(post, res, callback) {
   var query = `select id from users where username = "${post.username}"`;
   db.connection.query(query, function(err, rows, fields) {
     if (err) {
-      addUserToDb(post, res);
+      addUserToDb(post, res, callback);
     } else {
-      addMessageToDb(post, res);
+      callback(post, res);
     }
   });
 };
@@ -70,7 +70,7 @@ module.exports = {
     }, // a function which produces all the messages
     post: function(post, res) {
       console.log('now entering post: ', post.username, post.text, post.roomname);
-      checkifUserExistsInDb(post, res);
+      checkifUserExistsInDb(post, res, addMessageToDb);
     } // a function which can be used to insert a message into the database
   },
 
@@ -79,6 +79,10 @@ module.exports = {
   users: {
     // Ditto as above.
     get: function() {},
-    post: function() {}
+    post: function(post, res) {
+      checkifUserExistsInDb(post, res, function(){
+        console.log('User post success');
+      });
+    }
   }
 };

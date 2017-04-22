@@ -20,11 +20,6 @@ app.set('port', 3000);
 app.use(morgan('dev'));
 app.use(parser.json());
 
-
-// Allow cross domain
-// app.use(defaultCorsHeaders);
-
-// Set up our routes
 app.use('/classes', router);
 
 

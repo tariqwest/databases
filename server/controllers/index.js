@@ -21,17 +21,7 @@ module.exports = {
 
       models.messages.get(res);
 
-      // res.send(JSON.stringify({
-      //   results: [{
-      //     text: 'hey man',
-      //     username: 'joe',
-      //     roomname: 'lobby'
-      //   }]
-      // }));
     },
-
-
-
 
     post: function(req, res) {
       res.setHeader('access-control-allow-origin', '*');
@@ -50,13 +40,14 @@ module.exports = {
     },
 
 
-
-
-
-
-
     post: function(req, res) {
       console.log('users post');
+      res.setHeader('access-control-allow-origin', '*');
+      res.setHeader('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
+      res.setHeader('access-control-allow-headers', 'content-type, accept');
+      res.setHeader('access-control-max-age', 10);
+      console.log('message post');
+      models.users.post(req.body, res);
     }
   },
 

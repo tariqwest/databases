@@ -8,7 +8,7 @@ router.get('/messages', function(req, res) {
   controller.messages.get(req, res);
 });
 
-router.post('/messages', parser.json(), function(req, res) {
+router.post('/messages', function(req, res) {
   controller.messages.post(req, res);
 });
 
