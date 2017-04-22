@@ -1,45 +1,48 @@
-CREATE DATABASE chat;
+CREATE DATABASE chat; 
 
-USE chat;
+USE chat; 
+
+
+CREATE TABLE users (
+	id INT NOT NULL AUTO_INCREMENT,
+	username varchar(100) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE rooms (
+	id INTEGER NOT NULL AUTO_INCREMENT,
+	roomname varchar(50) NOT NULL,
+	PRIMARY KEY(id)
+);
 
 CREATE TABLE messages (
-  /* Describe your table here.*/
+	id INTEGER NOT NULL AUTO_INCREMENT,
+	userId INTEGER NOT NULL,
+	text varchar(140) NOT NULL,
+	roomId INTEGER NOT NULL,
+	FOREIGN KEY(userId) REFERENCES users(id),
+	FOREIGN KEY(roomId) REFERENCES rooms(id),
+	PRIMARY KEY (id)
+);
 
-  /* 
+insert into rooms (roomname) values ('lobby'); 
+insert into users (username) values ('addam tester');
+insert into messages (userId, text, roomId) values (1, 'test message number ONE', 1);
 
-  CREATE TABLE messages (
-  	id INTEGER PRIMARY KEY,
-		username varchar(100) TEXT NOT NULL,
-		text varchar(140) TEXT NOT NULL,
-		roomname varchar(50) TEXT NOT NULL,
-		user_id FOREIGN KEY(username) REFERENCES users(id)
-	);
+/*	
 
-	CREATE TABLE users (
-		id INTEGER PRIMARY KEY,
-		username varchar(100) TEXT NOT NULL
-	)
+add a user:
 
-
-
-
+REMINDER WE NEED TO ADD LOBBY TO DB at roomId = 1;
 
 
+add a message(after adding user . . .)
 
-  )
-	users
-	id (PRIMAR_KEY, int not null), name (varchar 100)
-	
-	messages
-		id (PRIMARY_KEY) | text (varchar 140) | created_at (date) | user_id (FOREIGN_KEY) | room (FOREIGN_KEY)
-	
-	rooms
-		id (PRIMARY_KEY) | text (varchar 100)
+
 
 
   */
 
-);
 
 /* Create other tables and define schemas for them here! */
 

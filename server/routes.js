@@ -1,5 +1,6 @@
 var controller = require('./controllers');
 var router = require('express').Router();
+var parser = require('body-parser');
 
 //Connect controller methods to their corresponding routes
 router.get('/messages', function(req, res) {
@@ -7,23 +8,39 @@ router.get('/messages', function(req, res) {
   controller.messages.get(req, res);
 });
 
-router.post('/messages', controller.messages.post);
+router.post('/messages', parser.json(), function(req, res) {
+  controller.messages.post(req, res);
+});
 
-router.get('/users', controller.users.get);
+router.get('/users', function(req, res) {
+  controller.users.get(req, res);
+});
 
-router.post('/users', controller.users.post);
+router.post('/users', function(req, res) {
+  controller.users.post(req, res);
+});
 
-router.get('/rooms', controller.rooms.get);
+router.get('/rooms', function(req, res) {
+  controller.rooms.get(req, res);
+});
 
-router.post('/rooms', controller.rooms.post);
+router.post('/rooms', function(req, res) {
+  controller.rooms.post(req, res);
+});
 
 router.options('/messages', function(req, res) {
   controller.messages.get(req, res);
   console.log('preflight options');
 });
 
-module.exports = router;
+router.options('/users', function(req, res) {
+  controller.messages.get(req, res);
+  console.log('preflight options');
+});
 
-var cons = function() {
-  console.log('hidere');
-};
+router.options('/rooms', function(req, res) {
+  controller.messages.get(req, res);
+  console.log('preflight options');
+});
+
+module.exports = router;

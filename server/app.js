@@ -36,8 +36,8 @@ if (!module.parent) {
 }
 
 // app.use(function(req, res, next) {
-// 	// res.setHeader('access-control-allow-origin', '*');
-//  //  res.setHeader('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
-//  //  res.setHeader('access-control-allow-headers', 'content-type, accept');
-//  //  res.setHeader('access-control-max-age', 10); 
+// 	res.setHeader('access-control-allow-origin', '*');
+//   res.setHeader('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//   res.setHeader('access-control-allow-headers', 'content-type, accept');
+//   res.setHeader('access-control-max-age', 10); 
 // });
